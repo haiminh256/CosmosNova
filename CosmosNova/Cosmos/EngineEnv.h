@@ -23,3 +23,9 @@
 #else
 #define COSMOS_API __attribute__((visibility("default")))
 #endif
+
+struct Vertex {
+	glm::vec3 Position;
+	glm::vec4 Color;
+	glm::vec2 TexCoord;
+};

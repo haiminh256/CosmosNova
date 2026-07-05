@@ -92,4 +92,13 @@ namespace Cosmos {
     void Shader::SetInt(const char* name, int value) {
         glUniform1i(glGetUniformLocation(shaderProgram, name), value);
     }
+    void Shader::SetMat4(const char* name, const glm::mat4& matrix)
+    {
+        glUniformMatrix4fv(
+            glGetUniformLocation(shaderProgram, name),
+            1,
+            GL_FALSE,
+            glm::value_ptr(matrix)
+        );
+    }
 }

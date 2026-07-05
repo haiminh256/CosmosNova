@@ -1,4 +1,5 @@
 #include <Cosmos/Renderer/Texture.h>
+#include <Cosmos/Core/Log.h>
 
 namespace Cosmos {
 	Texture::Texture() {
@@ -13,6 +14,10 @@ namespace Cosmos {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
 		unsigned char* data = stbi_load(filePath.c_str(), &width, &height, &channels, 0);
+        if (!data) {
+            CORE_ERROR("Texture::Load() failed");
+        }
+        CORE_INFO("Texture::Load() success");
 
         GLenum format = GL_RGB;
 

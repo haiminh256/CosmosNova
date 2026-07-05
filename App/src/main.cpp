@@ -9,6 +9,7 @@
 #include <Cosmos/Renderer/Camera.h>
 #include <Cosmos/Math/Time.h>
 #include <Cosmos/Renderer/Texture.h>
+#include <Cosmos/Renderer/Transform.h>
 
 int main() {
 	Cosmos::Engine App;
@@ -84,6 +85,7 @@ int main() {
 	Cosmos::VertexBuffer vbo;
 	Cosmos::VertexArray vao;
 	Cosmos::Texture Texture;
+	Cosmos::Transform Transform;
 
 	vao.Bind();
 	vbo.Bind();
@@ -102,14 +104,17 @@ int main() {
 	while (!App.ShouldClose()) {
 		Renderer.SetClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		Renderer.Clear();
+		float deltaTime = Time.getDeltaTime();
 
+		Transform.Rotation.y += 50.0f * deltaTime;
 		Shader.UseShader();
+		Shader.SetMat4("model", Transform.GetModelMatrix());
 		Camera.Matrix(45.0f, 0.1f, 100.0f, Shader, "camMatrix");
 		Texture.Bind(0);
 		Shader.SetInt("tex0", 0);
 		Renderer.Draw(0, 36);
 
-		Camera.HandleInputs(App.getWindow(), Time.getDeltaTime());
+		Camera.HandleInputs(App.getWindow(), deltaTime);
 
 		App.EventHandle();
 		App.SwapBuffers();
