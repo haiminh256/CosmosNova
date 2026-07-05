@@ -16,6 +16,7 @@
 #include <algorithm>
 #include <fstream>
 #include <sstream>
+#include <cstddef>
 #include <stb_image.h>
 
 #ifdef _WIN32
@@ -23,9 +24,3 @@
 #else
 #define COSMOS_API __attribute__((visibility("default")))
 #endif
-
-struct Vertex {
-	glm::vec3 Position;
-	glm::vec4 Color;
-	glm::vec2 TexCoord;
-};
