@@ -13,6 +13,7 @@ namespace Cosmos {
 		void Terminate();
 		bool ShouldClose();
 		void SwapBuffers();
+		GLFWwindow* getWindow();
 	private:
 		GLFWwindow* window = nullptr;
 	};

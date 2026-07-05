@@ -15,5 +15,6 @@ find_package(OpenGL REQUIRED)
 target_include_directories(${PROJECT_NAME} PUBLIC
 	${CMAKE_CURRENT_SOURCE_DIR}
 	${CMAKE_SOURCE_DIR}/vendors/glad
+	${CMAKE_SOURCE_DIR}/vendors/stb
 )
 target_link_libraries(${PROJECT_NAME} PUBLIC glfw glm spdlog::spdlog OpenGL::GL)

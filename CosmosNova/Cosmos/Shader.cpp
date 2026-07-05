@@ -89,4 +89,7 @@ namespace Cosmos {
         }
         CORE_INFO("Shader::Delete() success");
     }
+    void Shader::SetInt(const char* name, int value) {
+        glUniform1i(glGetUniformLocation(shaderProgram, name), value);
+    }
 }

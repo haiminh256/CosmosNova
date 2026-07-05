@@ -42,4 +42,7 @@ namespace Cosmos {
 	void Engine::SwapBuffers() {
 		glfwSwapBuffers(window);
 	}
+	GLFWwindow* Engine::getWindow() {
+		return window;
+	}
 }
