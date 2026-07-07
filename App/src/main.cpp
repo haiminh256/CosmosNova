@@ -11,12 +11,8 @@
 #include <Cosmos/Renderer/Texture.h>
 #include <Cosmos/Renderer/Transform.h>
 #include <Cosmos/Vertex/Vertex.h>
-<<<<<<< HEAD
 #include <Cosmos/Renderer/Mesh.h>
 #include <Cosmos/Renderer/Texture.h>
-#include <Cosmos/Renderer/Model.h>
-=======
->>>>>>> origin
 
 int main() {
 	Cosmos::Engine App;
@@ -42,7 +38,6 @@ int main() {
 
 	Cosmos::Vertex vertices[] =
 	{
-<<<<<<< HEAD
 		{{ 0.5f, -0.5f,  0.5f }, {0.0f, 0.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f}}, // 0
 		{{-0.5f, -0.5f,  0.5f }, {0.0f, 0.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {1.0f, 0.0f}}, // 1
 		{{-0.5f,  0.5f,  0.5f }, {0.0f, 0.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {1.0f, 1.0f}}, // 2
@@ -77,42 +72,6 @@ int main() {
 		{{-0.5f, -0.5f,  0.5f }, {0.0f, 0.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {1.0f, 0.0f}}, // 21
 		{{ 0.5f, -0.5f,  0.5f }, {0.0f, 0.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {1.0f, 1.0f}}, // 22
 		{{ 0.5f, -0.5f, -0.5f }, {0.0f, 0.0f, 0.0f}, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 1.0f}}  // 23
-=======
-		{{ 0.5f, -0.5f,  0.5f }, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f}}, // 0
-		{{-0.5f, -0.5f,  0.5f }, {1.0f, 1.0f, 1.0f, 1.0f}, {1.0f, 0.0f}}, // 1
-		{{-0.5f,  0.5f,  0.5f }, {1.0f, 1.0f, 1.0f, 1.0f}, {1.0f, 1.0f}}, // 2
-		{{ 0.5f,  0.5f,  0.5f }, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 1.0f}}, // 3
-
-		// Back (-Z)
-		{{ 0.5f, -0.5f, -0.5f }, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f}}, // 4
-		{{-0.5f, -0.5f, -0.5f }, {1.0f, 1.0f, 1.0f, 1.0f}, {1.0f, 0.0f}}, // 5
-		{{-0.5f,  0.5f, -0.5f }, {1.0f, 1.0f, 1.0f, 1.0f}, {1.0f, 1.0f}}, // 6
-		{{ 0.5f,  0.5f, -0.5f }, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 1.0f}}, // 7
-
-		// Left (-X)
-		{{-0.5f, -0.5f, -0.5f }, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f}}, // 8
-		{{-0.5f, -0.5f,  0.5f }, {1.0f, 1.0f, 1.0f, 1.0f}, {1.0f, 0.0f}}, // 9
-		{{-0.5f,  0.5f,  0.5f }, {1.0f, 1.0f, 1.0f, 1.0f}, {1.0f, 1.0f}}, // 10
-		{{-0.5f,  0.5f, -0.5f }, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 1.0f}}, // 11
-
-		// Right (+X)
-		{{ 0.5f, -0.5f,  0.5f }, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f}}, // 12
-		{{ 0.5f, -0.5f, -0.5f }, {1.0f, 1.0f, 1.0f, 1.0f}, {1.0f, 0.0f}}, // 13
-		{{ 0.5f,  0.5f, -0.5f }, {1.0f, 1.0f, 1.0f, 1.0f}, {1.0f, 1.0f}}, // 14
-		{{ 0.5f,  0.5f,  0.5f }, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 1.0f}}, // 15
-
-		// Top (+Y)
-		{{-0.5f,  0.5f,  0.5f }, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f}}, // 16
-		{{-0.5f,  0.5f, -0.5f }, {1.0f, 1.0f, 1.0f, 1.0f}, {1.0f, 0.0f}}, // 17
-		{{ 0.5f,  0.5f, -0.5f }, {1.0f, 1.0f, 1.0f, 1.0f}, {1.0f, 1.0f}}, // 18
-		{{ 0.5f,  0.5f,  0.5f }, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 1.0f}}, // 19
-
-		// Bottom (-Y)
-		{{-0.5f, -0.5f, -0.5f }, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 0.0f}}, // 20
-		{{-0.5f, -0.5f,  0.5f }, {1.0f, 1.0f, 1.0f, 1.0f}, {1.0f, 0.0f}}, // 21
-		{{ 0.5f, -0.5f,  0.5f }, {1.0f, 1.0f, 1.0f, 1.0f}, {1.0f, 1.0f}}, // 22
-		{{ 0.5f, -0.5f, -0.5f }, {1.0f, 1.0f, 1.0f, 1.0f}, {0.0f, 1.0f}}  // 23
->>>>>>> origin
 	};
 	unsigned int indices[] =
 	{
@@ -124,8 +83,7 @@ int main() {
 		16, 17, 18, 18, 19, 16,
 		20, 21, 22, 22, 23, 20,
 	};
-
-<<<<<<< HEAD
+	
 	std::vector<Cosmos::Vertex> meshVertices(
 		std::begin(vertices),
 		std::end(vertices));
@@ -136,26 +94,7 @@ int main() {
 	Cosmos::Mesh Cube(meshVertices, meshIndices);
 	Cosmos::Texture Texture;
 	Cosmos::Transform Transform;
-	Cosmos::Model globalModel;
 
-	globalModel.AddMesh(Cube);
-=======
-	Cosmos::ElementBuffer ebo;
-	Cosmos::VertexBuffer vbo;
-	Cosmos::VertexArray vao;
-	Cosmos::Texture Texture;
-	Cosmos::Transform Transform;
-
-	vao.Bind();
-	vbo.Bind();
-	vbo.LoadData(vertices, sizeof(vertices));
-	ebo.Bind();
-	ebo.LoadData(indices, sizeof(indices));
-	vao.VertexAttribPointer(0, 3, sizeof(Cosmos::Vertex), offsetof(Cosmos::Vertex, Position));
-	vao.VertexAttribPointer(1, 3, sizeof(Cosmos::Vertex), offsetof(Cosmos::Vertex, Color));
-	vao.VertexAttribPointer(2, 2, sizeof(Cosmos::Vertex), offsetof(Cosmos::Vertex, TexCoord));
-
->>>>>>> origin
 	Texture.Load("Assets/hoshino.png", true);
 
 	Cosmos::Camera Camera(800, 600, glm::vec3(0.0f, 0.0f, 2.0f));
@@ -172,11 +111,7 @@ int main() {
 		Camera.Matrix(45.0f, 0.1f, 100.0f, Shader, "camMatrix");
 		Texture.Bind(0);
 		Shader.SetInt("tex0", 0);
-<<<<<<< HEAD
-		globalModel.Draw(Shader);
-=======
-		Renderer.Draw(0, 36);
->>>>>>> origin
+		Cube.Draw(Shader);
 
 		Camera.HandleInputs(App.getWindow(), deltaTime);
 

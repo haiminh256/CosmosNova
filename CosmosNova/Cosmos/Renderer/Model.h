@@ -1,15 +1,16 @@
 #pragma once
 #include <Cosmos/CosmosBase.h>
 #include <Cosmos/Renderer/Mesh.h>
+#include <Cosmos/Shader/Shader.h>
+#include <Cosmos/Renderer/Texture.h>
 
 namespace Cosmos {
     class Model
     {
     public:
-        COSMOS_API Model() = default;
         COSMOS_API Model(const char* path);
         COSMOS_API void Draw(Shader& shader);
-        COSMOS_API void AddMesh(const Mesh& mesh);
+        COSMOS_API void Model::AddMesh(const Mesh& mesh);
     private:
         // model data
         std::vector<Mesh> meshes;

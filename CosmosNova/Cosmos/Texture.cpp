@@ -5,11 +5,7 @@ namespace Cosmos {
 	Texture::Texture() {
 		glGenTextures(1, &id);
 	}
-<<<<<<< HEAD
 	bool Texture::Load(const std::string& filePath, bool flip) {
-=======
-	void Texture::Load(const std::string& filePath, bool flip) {
->>>>>>> origin
 		stbi_set_flip_vertically_on_load(flip);
 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -20,10 +16,7 @@ namespace Cosmos {
 		unsigned char* data = stbi_load(filePath.c_str(), &width, &height, &channels, 0);
         if (!data) {
             CORE_ERROR("Texture::Load() failed");
-<<<<<<< HEAD
             return false;
-=======
->>>>>>> origin
         }
         CORE_INFO("Texture::Load() success");
 
@@ -71,10 +64,7 @@ namespace Cosmos {
         glGenerateMipmap(GL_TEXTURE_2D);
 
         stbi_image_free(data);
-<<<<<<< HEAD
         return true;
-=======
->>>>>>> origin
 	}
     void Texture::Bind(unsigned int unit) const {
         glActiveTexture(GL_TEXTURE0 + unit);
@@ -87,13 +77,10 @@ namespace Cosmos {
             id = 0;
         }
     }
-<<<<<<< HEAD
     void Texture::setType(std::string Type) {
         Type = this->Type;
     }
     void Texture::setPath(std::string Path) {
         Path = this->Path;
     }
-=======
->>>>>>> origin
 }
