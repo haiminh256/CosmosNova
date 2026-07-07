@@ -1,5 +1,5 @@
 #include <Cosmos/Renderer/Renderer.h>
-#include <Cosmos/EngineEnv.h>
+#include <Cosmos/CosmosBase.h>
 #include <Cosmos/Core/Log.h>
 
 namespace Cosmos {
@@ -10,6 +10,8 @@ namespace Cosmos {
             return false;
         }
         CORE_INFO("Renderer::Init() success");
+        glEnable(GL_DEPTH_TEST);
+        glDepthFunc(GL_LEQUAL);
     }
 
     void Renderer::SetViewport(int x, int y, int width, int height) {
@@ -22,7 +24,7 @@ namespace Cosmos {
 
     void Renderer::Clear() {
         // Xóa cả bộ đệm màu sắc lẫn bộ đệm chiều sâu
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 
     void Renderer::Draw(unsigned int offset, unsigned int indexCount) {

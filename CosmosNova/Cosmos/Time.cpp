@@ -2,7 +2,7 @@
 
 namespace Cosmos {
 	float Time::getDeltaTime() {
-		float currentFrame = glfwGetTime();
+		float currentFrame = (float)glfwGetTime();
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 

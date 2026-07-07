@@ -1,5 +1,5 @@
 #pragma once
-#include <Cosmos/EngineEnv.h>
+#include <Cosmos/CosmosBase.h>
 
 namespace Cosmos {
 	class COSMOS_API VertexArray {

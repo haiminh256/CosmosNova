@@ -86,7 +86,7 @@
 + [7.6. Where can I find the documentation of extensions?](#section7_6)
 + [7.7. Should I use 'using namespace glm;'?](#section7_7)
 + [7.8. Is GLM fast?](#section7_8)
-+ [7.9. When I build with Visual C++ with /w4 warning level, I have warnings...](#section7_9)
++ [7.9. When I build with Visual C++ with /W3 warning level, I have warnings...](#section7_9)
 + [7.10. Why some GLM functions can crash because of division by zero?](#section7_10)
 + [7.11. What unit for angles us used in GLM?](#section7_11)
 + [7.12. Windows headers cause build errors...](#section7_12)
@@ -748,7 +748,7 @@ int average(int const A, int const B)
 
 ### <a name="section2_20"></a> 2.20. GLM\_FORCE\_SILENT\_WARNINGS: Silent C++ warnings from language extensions
 
-When using /W4 on Visual C++ or -Wpedantic on GCC, for example, the compilers will generate warnings for using C++ language extensions (/Za with Visual C++) such as anonymous struct.
+When using /W3 on Visual C++ or -Wpedantic on GCC, for example, the compilers will generate warnings for using C++ language extensions (/Za with Visual C++) such as anonymous struct.
 GLM relies on anonymous structs for swizzle operators and aligned vector types. To silent those warnings define `GLM_FORCE_SILENT_WARNINGS` before including GLM headers.
 
 ### <a name="section2_21"></a> 2.21. GLM\_FORCE\_QUAT\_DATA\_XYZW: Force GLM to store quat data as x,y,z,w instead of w,x,y,z
@@ -1920,9 +1920,9 @@ mediump and highp qualifiers, GLM provides approximations which trade precision 
 
 However, on performance critical code paths, we should expect that dedicated algorithms should be written to reach peak performance.
 
-### <a name="section7_9"></a> 7.9. When I build with Visual C++ with /W4 warning level, I have warnings...
+### <a name="section7_9"></a> 7.9. When I build with Visual C++ with /W3 warning level, I have warnings...
 
-You should not have any warnings even in `/W4` mode. However, if you expect such level for your code, then you should ask for the same level to the compiler by at least disabling the Visual C++ language extensions
+You should not have any warnings even in `/W3` mode. However, if you expect such level for your code, then you should ask for the same level to the compiler by at least disabling the Visual C++ language extensions
 (`/Za`) which generates warnings when used. If these extensions are enabled, then GLM will take advantage of them and the compiler will generate warnings.
 
 ### <a name="section7_10"></a> 7.10. Why some GLM functions can crash because of division by zero?

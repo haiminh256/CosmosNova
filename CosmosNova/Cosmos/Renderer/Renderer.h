@@ -1,5 +1,5 @@
 #pragma once
-#include <Cosmos/EngineEnv.h>
+#include <Cosmos/CosmosBase.h>
 #include <Cosmos/Shader/Shader.h>
 
 namespace Cosmos {

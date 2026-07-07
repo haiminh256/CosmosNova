@@ -1,4 +1,4 @@
-#include <Cosmos/Engine.h>
+#include <Cosmos/Core/Engine.h>
 #include <Cosmos/Core/Log.h>
 
 namespace Cosmos {
@@ -41,5 +41,8 @@ namespace Cosmos {
 	}
 	void Engine::SwapBuffers() {
 		glfwSwapBuffers(window);
+	}
+	GLFWwindow* Engine::getWindow() {
+		return window;
 	}
 }

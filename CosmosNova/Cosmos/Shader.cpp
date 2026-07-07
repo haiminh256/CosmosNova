@@ -1,6 +1,6 @@
 #include <Cosmos/Shader/Shader.h>
 #include <Cosmos/Core/Log.h>
-#include <Cosmos/EngineEnv.h>
+#include <Cosmos/CosmosBase.h>
 
 namespace Cosmos {
 
@@ -88,5 +88,17 @@ namespace Cosmos {
             shaderProgram = 0;
         }
         CORE_INFO("Shader::Delete() success");
+    }
+    void Shader::SetInt(const char* name, int value) {
+        glUniform1i(glGetUniformLocation(shaderProgram, name), value);
+    }
+    void Shader::SetMat4(const char* name, const glm::mat4& matrix)
+    {
+        glUniformMatrix4fv(
+            glGetUniformLocation(shaderProgram, name),
+            1,
+            GL_FALSE,
+            glm::value_ptr(matrix)
+        );
     }
 }

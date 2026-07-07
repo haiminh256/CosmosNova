@@ -14,6 +14,8 @@ project ("CosmosNova")
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(ASSIMP_BUILD_TESTS off) 
+set(ASSIMP_INSTALL off)
 
 # Include sub-projects.
 add_subdirectory ("CosmosNova")
@@ -21,3 +23,4 @@ add_subdirectory ("App")
 add_subdirectory ("vendors/glfw")
 add_subdirectory ("vendors/glm")
 add_subdirectory ("vendors/spdlog")
+add_subdirectory ("vendors/assimp")

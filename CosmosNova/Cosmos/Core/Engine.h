@@ -1,5 +1,5 @@
 #pragma once
-#include <Cosmos/EngineEnv.h>
+#include <Cosmos/CosmosBase.h>
 
 namespace Cosmos {
 	class COSMOS_API Engine {
@@ -13,6 +13,7 @@ namespace Cosmos {
 		void Terminate();
 		bool ShouldClose();
 		void SwapBuffers();
+		GLFWwindow* getWindow();
 	private:
 		GLFWwindow* window = nullptr;
 	};
