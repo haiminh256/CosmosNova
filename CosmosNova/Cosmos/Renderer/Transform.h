@@ -1,6 +1,10 @@
 #pragma once
 
+<<<<<<< HEAD
 #include <Cosmos/CosmosBase.h>
+=======
+#include <Cosmos/EngineEnv.h>
+>>>>>>> origin
 
 namespace Cosmos
 {

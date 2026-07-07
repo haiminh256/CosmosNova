@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 #include <Cosmos/CosmosBase.h>
+=======
+#include <Cosmos/EngineEnv.h>
+>>>>>>> origin
 #include <Cosmos/Shader/Shader.h>
 
 namespace Cosmos {
