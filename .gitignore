@@ -14,4 +14,5 @@ _deps
 /out/
 /build/
 .ccls-cache
-/Assets/bugatti
+Assets/ufo/
+Assets/sword/

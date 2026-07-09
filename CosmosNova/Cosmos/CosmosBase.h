@@ -19,9 +19,7 @@
 #include <cstddef>
 #include <memory>
 #include <stb_image.h>
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
-#include <assimp/postprocess.h>	
+#include <json/json.h>
 
 #ifdef _WIN32
 #define COSMOS_API __declspec(dllexport)

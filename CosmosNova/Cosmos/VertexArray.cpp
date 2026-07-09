@@ -1,8 +1,26 @@
 #include <Cosmos/Vertex/VertexArray.h>
+#include <Cosmos/Core/Log.h>
 
 namespace Cosmos {
 	VertexArray::VertexArray() {
 		glGenVertexArrays(1, &id);
+	}
+	VertexArray::VertexArray(VertexArray&& other) noexcept
+	{
+		id = other.id;
+		other.id = 0;
+	}
+	VertexArray& VertexArray::operator=(VertexArray&& other) noexcept
+	{
+		if (this != &other)
+		{
+			Delete();
+
+			id = other.id;
+			other.id = 0;
+		}
+
+		return *this;
 	}
 	void VertexArray::Bind() {
 		glBindVertexArray(id);
@@ -12,6 +30,10 @@ namespace Cosmos {
 		glEnableVertexArrayAttrib(id, layout);
 	}
 	void VertexArray::Delete() {
-		glDeleteVertexArrays(1, &id);
+		if (id != 0)
+		{
+			glDeleteVertexArrays(1, &id);
+			id = 0;
+		}
 	}
 }

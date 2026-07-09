@@ -4,6 +4,23 @@ namespace Cosmos {
 	VertexBuffer::VertexBuffer() {
 		glGenBuffers(1, &id);
 	}
+	VertexBuffer::VertexBuffer(VertexBuffer&& other) noexcept
+	{
+		id = other.id;
+		other.id = 0;
+	}
+	VertexBuffer& VertexBuffer::operator=(VertexBuffer&& other) noexcept
+	{
+		if (this != &other)
+		{
+			Delete();
+
+			id = other.id;
+			other.id = 0;
+		}
+
+		return *this;
+	}
 	void VertexBuffer::Bind() {
 		glBindBuffer(GL_ARRAY_BUFFER, id);
 	}

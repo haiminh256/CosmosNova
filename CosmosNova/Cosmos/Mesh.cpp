@@ -44,37 +44,43 @@ namespace Cosmos
 		m_VAO.VertexAttribPointer(3, 2, sizeof(Vertex), offsetof(Vertex, TexCoord));
 	}
 
-	void Mesh::Draw(Shader& shader)
+	void Mesh::Draw(Shader& shader, 
+		glm::mat4 matrix,
+		glm::vec3 translation,
+		glm::quat rotation,
+		glm::vec3 scale)
 	{
-		// Bind textures
-		unsigned int diffuseNr = 1;
-		unsigned int specularNr = 1;
-		unsigned int normalNr = 1;
-		unsigned int heightNr = 1;
+		// Đảm bảo Shader đang được sử dụng
+		shader.UseShader(); // Hoặc tùy thuộc vào hàm kích hoạt Shader của bạn
 
+		// Bind textures
 		for (unsigned int i = 0; i < m_Textures.size(); i++)
 		{
 			const std::string& name = m_Textures[i].Type;
-			std::string number;
-			std::string uniformName;
 
-			if (name == "texture_diffuse")
-				number = std::to_string(diffuseNr++);
-			else if (name == "texture_specular")
-				number = std::to_string(specularNr++);
-			else if (name == "texture_normal")
-				number = std::to_string(normalNr++);
-			else if (name == "texture_height")
-				number = std::to_string(heightNr++);
-			else
-				number = std::to_string(1);
-
-			uniformName = name + number;
-
-			m_Textures[i].Bind(i);
+			// Nếu là texture_diffuse (texture màu chính của xe)
+			if (name == "texture_diffuse" || m_Textures[i].Type == "texture_baseColor")
+			{
+				m_Textures[i].Bind(i);           // Bind vào unit 0
+				break; // Nếu Shader chỉ nhận 1 map chính, ta thoát vòng lặp luôn
+			}
 		}
 
 		// Draw
+		glm::mat4 trans = glm::mat4(1.0f);
+		glm::mat4 rot = glm::mat4(1.0f);
+		glm::mat4 sca = glm::mat4(1.0f);
+
+		// Transform the matrices to their correct form
+		trans = glm::translate(trans, translation);
+		rot = glm::mat4_cast(rotation);
+		sca = glm::scale(sca, scale);
+
+		// Push the matrices to the vertex shader
+		glUniformMatrix4fv(glGetUniformLocation(shader.shaderProgram, "translation"), 1, GL_FALSE, glm::value_ptr(trans));
+		glUniformMatrix4fv(glGetUniformLocation(shader.shaderProgram, "rotation"), 1, GL_FALSE, glm::value_ptr(rot));
+		glUniformMatrix4fv(glGetUniformLocation(shader.shaderProgram, "scale"), 1, GL_FALSE, glm::value_ptr(sca));
+		glUniformMatrix4fv(glGetUniformLocation(shader.shaderProgram, "model"), 1, GL_FALSE, glm::value_ptr(matrix));
 		m_VAO.Bind();
 		glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(m_Indices.size()), GL_UNSIGNED_INT, nullptr);
 

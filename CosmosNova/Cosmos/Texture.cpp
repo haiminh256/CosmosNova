@@ -19,7 +19,7 @@ namespace Cosmos {
             return false;
         }
         CORE_INFO("Texture::Load() success");
-
+        CORE_INFO(filePath);
         GLenum format = GL_RGB;
 
         switch (channels)
@@ -78,9 +78,31 @@ namespace Cosmos {
         }
     }
     void Texture::setType(std::string Type) {
-        Type = this->Type;
+        this->Type = Type;
     }
     void Texture::setPath(std::string Path) {
-        Path = this->Path;
+        this->Path = Path;
+    }
+    bool Texture::LoadFromMemory(const unsigned char* buffer, int bufferSize, bool flip) {
+        stbi_set_flip_vertically_on_load(flip);
+
+        // Sử dụng hàm stbi_load_from_memory thay vì stbi_load thông thường
+        unsigned char* data = stbi_load_from_memory(buffer, bufferSize, &width, &height, &channels, 0);
+        if (!data) {
+            CORE_ERROR("Texture::LoadFromMemory() failed");
+            return false;
+        }
+
+        GLenum format = GL_RGB;
+        if (channels == 1) format = GL_RED;
+        else if (channels == 3) format = GL_RGB;
+        else if (channels == 4) format = GL_RGBA;
+
+        glBindTexture(GL_TEXTURE_2D, id);
+        glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
+
+        stbi_image_free(data);
+        return true;
     }
 }

@@ -19,10 +19,17 @@ namespace Cosmos
 			const std::vector<Vertex>& vertices,
 			const std::vector<unsigned int>& indices,
 			const std::vector<Texture>& textures = {});
-
+		COSMOS_API Mesh(const Mesh&) = delete;
+		COSMOS_API Mesh& operator=(const Mesh&) = delete;
+		COSMOS_API Mesh(Mesh&&) noexcept = default;
+		COSMOS_API Mesh& operator=(Mesh&&) noexcept = default;
 		COSMOS_API ~Mesh();
 
-		COSMOS_API void Draw(Shader& shader);
+		COSMOS_API void Draw(Shader& shader, glm::mat4 matrix = glm::mat4(1.0f),
+			glm::vec3 translation = glm::vec3(0.0f, 0.0f, 0.0f),
+			glm::quat rotation = glm::quat(1.0f, 0.0f, 0.0f, 0.0f),
+			glm::vec3 scale = glm::vec3(1.0f, 1.0f, 1.0f)
+		);
 
 	private:
 		void SetupMesh();

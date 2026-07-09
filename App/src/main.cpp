@@ -13,6 +13,7 @@
 #include <Cosmos/Vertex/Vertex.h>
 #include <Cosmos/Renderer/Mesh.h>
 #include <Cosmos/Renderer/Texture.h>
+#include <Cosmos/Renderer/Model.h>
 
 int main() {
 	Cosmos::Engine App;
@@ -91,15 +92,16 @@ int main() {
 	std::vector<unsigned int> meshIndices(
 		std::begin(indices),
 		std::end(indices));
-	Cosmos::Mesh Cube(meshVertices, meshIndices);
+	// Cosmos::Mesh Cube(meshVertices, meshIndices);
 	Cosmos::Texture Texture;
 	Cosmos::Transform Transform;
-
-	Texture.Load("Assets/hoshino.png", true);
+	Cosmos::Model globalModel("Assets/sword/scene.gltf");
+	Cosmos::Model ufoModel("Assets/ufo/Rigged_Modular UFO 2.8.glb.gltf");
+	// std::cout << ".obj loaded" << std::endl;
+	//Texture.Load("Assets/hoshino.png", true);
 
 	Cosmos::Camera Camera(800, 600, glm::vec3(0.0f, 0.0f, 2.0f));
 	Cosmos::Time Time;
-
 	while (!App.ShouldClose()) {
 		Renderer.SetClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		Renderer.Clear();
@@ -109,9 +111,11 @@ int main() {
 		Shader.UseShader();
 		Shader.SetMat4("model", Transform.GetModelMatrix());
 		Camera.Matrix(45.0f, 0.1f, 100.0f, Shader, "camMatrix");
-		Texture.Bind(0);
-		Shader.SetInt("tex0", 0);
-		Cube.Draw(Shader);
+		// Texture.Bind(0);
+		// Shader.SetInt("tex0", 0);
+		//Cube.Draw(Shader);
+		globalModel.Draw(Shader);
+		ufoModel.Draw(Shader);
 
 		Camera.HandleInputs(App.getWindow(), deltaTime);
 
