@@ -19,7 +19,7 @@ namespace Cosmos
 
         COSMOS_API bool Load(const char* path);
 
-        COSMOS_API void Draw(Shader& shader);
+        COSMOS_API void Draw(Shader& shader, const glm::mat4& worldTransform = glm::mat4(0.0f));
 
     private:
 

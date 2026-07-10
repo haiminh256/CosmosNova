@@ -48,44 +48,51 @@ namespace Cosmos
 		glm::mat4 matrix,
 		glm::vec3 translation,
 		glm::quat rotation,
-		glm::vec3 scale)
+		glm::vec3 scale,
+		const glm::mat4& parentTransform)
 	{
-		// Đảm bảo Shader đang được sử dụng
-		shader.UseShader(); // Hoặc tùy thuộc vào hàm kích hoạt Shader của bạn
 
-		// Bind textures
-		for (unsigned int i = 0; i < m_Textures.size(); i++)
-		{
-			const std::string& name = m_Textures[i].Type;
+        // 2. NHÂN DỒN: Ma trận cuối cùng bao gồm cả vị trí dịch chuyển thế giới ngoài main.cpp
+		glm::mat4 trans = glm::translate(glm::mat4(1.0f), translation);
+		glm::mat4 rot = glm::mat4_cast(rotation);
+		glm::mat4 sca = glm::scale(glm::mat4(1.0f), scale);
+		glm::mat4 finalModelMatrix = parentTransform * matrix;
+        // Đảm bảo kích hoạt Shader trước khi nạp dữ liệu
+        shader.UseShader();
 
-			// Nếu là texture_diffuse (texture màu chính của xe)
-			if (name == "texture_diffuse" || m_Textures[i].Type == "texture_baseColor")
-			{
-				m_Textures[i].Bind(i);           // Bind vào unit 0
-				break; // Nếu Shader chỉ nhận 1 map chính, ta thoát vòng lặp luôn
-			}
-		}
+        // ========================================================
+        // BỘ NẠP TEXTURE ĐA NỀN TẢNG (ĐÃ XÓA BỎ LỆNH BREAK LỖI)
+        // ========================================================
+        for (unsigned int i = 0; i < m_Textures.size(); i++)
+        {
+            glActiveTexture(GL_TEXTURE0 + i); // Kích hoạt slot texture tăng dần (0, 1, 2...)
 
-		// Draw
-		glm::mat4 trans = glm::mat4(1.0f);
-		glm::mat4 rot = glm::mat4(1.0f);
-		glm::mat4 sca = glm::mat4(1.0f);
+            const std::string& name = m_Textures[i].Type;
 
-		// Transform the matrices to their correct form
-		trans = glm::translate(trans, translation);
-		rot = glm::mat4_cast(rotation);
-		sca = glm::scale(sca, scale);
+            // Kiểm tra đúng tên loại texture từ file glTF
+            if (name == "texture_diffuse" || name == "texture_baseColor")
+            {
+                // Thiết lập sampler trong shader đọc đúng slot 'i'
+                // Đảm bảo trong fragment.glsl đặt tên uniform trùng với tên bạn truyền vào ở đây
+                glUniform1i(glGetUniformLocation(shader.shaderProgram, "tex0"), i);
+                m_Textures[i].Bind(i);
+            }
+            // LƯU Ý: KHÔNG dùng lệnh 'break;' ở đây để các mesh con phía sau đều được nạp ảnh!
+        }
 
-		// Push the matrices to the vertex shader
 		glUniformMatrix4fv(glGetUniformLocation(shader.shaderProgram, "translation"), 1, GL_FALSE, glm::value_ptr(trans));
 		glUniformMatrix4fv(glGetUniformLocation(shader.shaderProgram, "rotation"), 1, GL_FALSE, glm::value_ptr(rot));
 		glUniformMatrix4fv(glGetUniformLocation(shader.shaderProgram, "scale"), 1, GL_FALSE, glm::value_ptr(sca));
-		glUniformMatrix4fv(glGetUniformLocation(shader.shaderProgram, "model"), 1, GL_FALSE, glm::value_ptr(matrix));
-		m_VAO.Bind();
-		glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(m_Indices.size()), GL_UNSIGNED_INT, nullptr);
 
-		// Reset texture unit
-		glActiveTexture(GL_TEXTURE0);
+		// Truyền ma trận đã tích hợp chuyển động thế giới vào biến "model"
+		glUniformMatrix4fv(glGetUniformLocation(shader.shaderProgram, "model"), 1, GL_FALSE, glm::value_ptr(finalModelMatrix));
+
+        // Tiến hành vẽ mô hình
+        m_VAO.Bind();
+        glDrawElements(GL_TRIANGLES, static_cast<GLsizei>(m_Indices.size()), GL_UNSIGNED_INT, nullptr);
+
+        // Trả slot texture unit về mặc định
+        glActiveTexture(GL_TEXTURE0);
 	}
 
 }

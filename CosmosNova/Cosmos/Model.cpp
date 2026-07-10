@@ -103,16 +103,19 @@ namespace Cosmos {
         return true;
     }
 
-    void Model::Draw(Shader& shader)
+    void Model::Draw(Shader& shader, const glm::mat4& worldTransform)
     {
         for (size_t i = 0; i < m_Meshes.size(); i++)
         {
+            // Gửi ma trận worldTransform từ main.cpp vào làm tham số ma trận cha gốc cho từng Mesh
             m_Meshes[i].Draw(
                 shader,
                 m_MeshMatrices[i],
                 m_MeshTranslations[i],
                 m_MeshRotations[i],
-                m_MeshScales[i]);
+                m_MeshScales[i],
+                worldTransform // <-- THÊM THAM SỐ NÀY VÀO CUỐI HÀM
+            );
         }
     }
 

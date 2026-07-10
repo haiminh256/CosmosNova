@@ -94,7 +94,8 @@ int main() {
 		std::end(indices));
 	// Cosmos::Mesh Cube(meshVertices, meshIndices);
 	Cosmos::Texture Texture;
-	Cosmos::Transform Transform;
+	Cosmos::Transform ufoTransform;
+	Cosmos::Transform swordTransform;
 	Cosmos::Model globalModel("Assets/sword/scene.gltf");
 	Cosmos::Model ufoModel("Assets/ufo/Rigged_Modular UFO 2.8.glb.gltf");
 	// std::cout << ".obj loaded" << std::endl;
@@ -102,20 +103,24 @@ int main() {
 
 	Cosmos::Camera Camera(800, 600, glm::vec3(0.0f, 0.0f, 2.0f));
 	Cosmos::Time Time;
+	swordTransform.Position = glm::vec3(-1.5f, 0.0f, 0.0f);
+	ufoTransform.Position = glm::vec3(1.5f, 0.0f, 0.0f);
+	// ufoTransform.Rotation.x = -90.0f;
 	while (!App.ShouldClose()) {
 		Renderer.SetClearColor(0.2f, 0.3f, 0.3f, 1.0f);
 		Renderer.Clear();
 		float deltaTime = Time.getDeltaTime();
 
-		Transform.Rotation.y += 50.0f * deltaTime;
+		ufoTransform.Rotation.y += 50.0f * deltaTime;
+		swordTransform.Rotation.y += 50.0f * deltaTime;
 		Shader.UseShader();
-		Shader.SetMat4("model", Transform.GetModelMatrix());
+		// Shader.SetMat4("model", Transform.GetModelMatrix());
 		Camera.Matrix(45.0f, 0.1f, 100.0f, Shader, "camMatrix");
 		// Texture.Bind(0);
-		// Shader.SetInt("tex0", 0);
+		//Shader.SetInt("tex0", 0);
 		//Cube.Draw(Shader);
-		globalModel.Draw(Shader);
-		ufoModel.Draw(Shader);
+		globalModel.Draw(Shader, swordTransform.GetModelMatrix());
+		ufoModel.Draw(Shader, ufoTransform.GetModelMatrix());
 
 		Camera.HandleInputs(App.getWindow(), deltaTime);
 
